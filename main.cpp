@@ -4,7 +4,7 @@
  #include <stdlib.h>
  #include <math.h>
  #include <GL/glut.h>
-
+ #define PI 3.1415927
 
  int rightHandAngle = 180; // Angle of lower right hand
  bool mouseLeftState = false; // Is left mouse clicked?
@@ -21,6 +21,40 @@ void draw_pixel(int x, int y) {
 	glBegin(GL_POINTS);
 	glVertex2i(x, y);
 	glEnd();
+}
+
+void draw_cylinder(GLfloat radius,GLfloat height,GLubyte R,GLubyte G,GLubyte B)
+{
+    GLfloat x              = 0.0;
+    GLfloat y              = 0.0;
+    GLfloat angle          = 0.0;
+    GLfloat angle_stepsize = 0.1;
+    /** Draw the tube */
+    glColor3ub(R-40,G-40,B-40);
+    glBegin(GL_QUAD_STRIP);
+    angle = 0.0;
+        while( angle < 2*PI ) {
+            x = radius * cos(angle);
+            y = radius * sin(angle);
+            glVertex3f(x, y , height);
+            glVertex3f(x, y , 0.0);
+            angle = angle + angle_stepsize;
+        }
+        glVertex3f(radius, 0.0, height);
+        glVertex3f(radius, 0.0, 0.0);
+    glEnd();
+    /** Draw the circle on top of cylinder */
+    glColor3ub(R,G,B);
+    glBegin(GL_POLYGON);
+    angle = 0.0;
+        while( angle < 2*PI ) {
+            x = radius * cos(angle);
+            y = radius * sin(angle);
+            glVertex3f(x, y , height);
+            angle = angle + angle_stepsize;
+        }
+        glVertex3f(radius, 0.0, height);
+    glEnd();
 }
 /*
 void edgedetect(GLfloat x1,GLfloat y11,GLfloat x2,GLfloat y2,int *le,int *re)
@@ -69,6 +103,8 @@ void scanfill(float x1,float y1,float x2,float y2,float x3,float y3,float x4,flo
 }
 
 */
+
+
 void draw_line(int x1, int x2, int y1, int y2) {
 	int dx, dy, i, e;
 	int incx, incy, inc1, inc2;
@@ -147,12 +183,12 @@ void circledraw(double R , double x, double y){
  void display(){
          glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
          glPushMatrix(); //BODY
-         glColor3f(1.0, 0.647, 0.0);
+         glColor3f(1.0, 1.0, 0.0);
          glTranslatef(0.0, 221, zMove);
          glRotatef(90, 1.0, 0.0, 0.0);
          GLUquadricObj* body = gluNewQuadric();
          gluQuadricDrawStyle(body, GLU_FILL);
-         gluCylinder(body, 120, 120, 300, 30, 30);
+         draw_cylinder(120,300,120,0,0);
          glPopMatrix();
 
          glPushMatrix(); //LEFT UPPER ARM
@@ -162,7 +198,7 @@ void circledraw(double R , double x, double y){
          glRotatef(90, 1.0, 0.0, 0.0);
          GLUquadricObj* leftUpperArm = gluNewQuadric();
          gluQuadricDrawStyle(leftUpperArm, GLU_FILL);
-         gluCylinder(leftUpperArm, 16, 16, 200, 30, 30);
+         draw_cylinder( 16,200, 0, 30, 30);
          glPopMatrix();
 
          glPushMatrix(); // LEFT UPPER ARM AND BODY CONNECTION
@@ -179,7 +215,7 @@ void circledraw(double R , double x, double y){
          glRotatef(90, 1.0, 0.0, 0.0);
          GLUquadricObj* leftLowerArm = gluNewQuadric();
          gluQuadricDrawStyle(leftLowerArm, GLU_FILL);
-         gluCylinder(leftLowerArm, 16, 16, 200, 30, 30);
+         draw_cylinder( 16, 200, 0, 200, 0);
          glPopMatrix();
 
          glPushMatrix(); // LEFT LOWER ARM AND LEFT UPPER ARM CONNECTION
@@ -196,7 +232,7 @@ void circledraw(double R , double x, double y){
          glRotatef(90, 1.0, 0.0, 0.0);
          GLUquadricObj* rightUpperArm = gluNewQuadric();
          gluQuadricDrawStyle(rightUpperArm, GLU_FILL);
-         gluCylinder(rightUpperArm, 16, 16, 200, 30, 30);
+         draw_cylinder (16, 200 ,0,200,0);
          glPopMatrix();
 
          glPushMatrix(); // RIGHT UPPER ARM AND BODY CONNECTION
@@ -213,7 +249,7 @@ void circledraw(double R , double x, double y){
          glRotatef(90, 1.0, 0.0, 0.0);
          GLUquadricObj* rightLowerArm = gluNewQuadric();
          gluQuadricDrawStyle(rightLowerArm, GLU_FILL);
-         gluCylinder(rightLowerArm, 16, 16, 200, 30, 30);
+         draw_cylinder( 16, 200,200,0 ,0);
          glPopMatrix();
 
          glPushMatrix(); // RIGHT LOWER ARM AND RIGHT UPPER ARM CONNECTION
@@ -230,7 +266,7 @@ void circledraw(double R , double x, double y){
          glRotatef((GLfloat)leftLegAngle, 1.0, 0.0, 0.0);
          GLUquadricObj* leftLeg = gluNewQuadric();
          gluQuadricDrawStyle(leftLeg, GLU_FILL);
-         gluCylinder(leftLeg, 16, 16, 400, 30, 30);
+         draw_cylinder( 16, 400, 16,30, 30);
          glPopMatrix();
 
          glPushMatrix(); // LEFT LEG AND BODY CONNECTION
@@ -247,7 +283,7 @@ void circledraw(double R , double x, double y){
          glRotatef((GLfloat)rightLegAngle, 1.0, 0.0, 0.0);
          GLUquadricObj* rightLeg = gluNewQuadric();
          gluQuadricDrawStyle(rightLeg, GLU_FILL);
-         gluCylinder(rightLeg, 16, 16, 400, 30, 30);
+         draw_cylinder(16, 400,16 , 30, 30);
          glPopMatrix();
 
          glPushMatrix(); // RIGHT LEG AND BODY CONNECTION
@@ -263,7 +299,7 @@ void circledraw(double R , double x, double y){
          glRotatef(90, 1.0, 0.0, 0.0);
          GLUquadricObj* neck = gluNewQuadric();
          gluQuadricDrawStyle(neck, GLU_FILL);
-         gluCylinder(neck, 20, 20, 30, 30, 30);
+         draw_cylinder(20, 30,20, 30, 30);
          glPopMatrix();
 
          glPushMatrix(); // HEAD
@@ -274,11 +310,13 @@ void circledraw(double R , double x, double y){
 
          glPopMatrix();
          glPushMatrix();
-         glColor3f(1.0, 1.0 , 1.0);
+         glColor3f(0.0,0.0,0.0);
          draw_line(-580, -300 , 40 , 40);
          draw_line(-580, -580 , 40 , -300);
          draw_line(-580, -300 , -300 , -300);
          draw_line(-300, -300 , 40 , -300);
+         draw_line(-580,-440 , 40, 90);
+         draw_line(-300,-440,40,90);
          //scanfill(-580,40,-300,40,-300,-300,-580,-300);
          glPopMatrix();
 
