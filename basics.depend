@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1523599409 source:/home/anumeha/Documents/basics/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<GL/glut.h>
+
+1400929863 /home/anumeha/miniconda3/include/GL/glut.h
+	"freeglut_std.h"
+
+1400929863 /home/anumeha/miniconda3/include/GL/freeglut_std.h
+	<windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1517256433 /home/anumeha/miniconda3/include/GL/gl.h
+	"gl_mangle.h"
+	<windows.h>
+	<GL/glext.h>
+
+1517256433 /home/anumeha/miniconda3/include/GL/gl_mangle.h
+
+1517256433 /home/anumeha/miniconda3/include/GL/glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1445634967 /home/anumeha/miniconda3/include/GL/glu.h
+	"glu_mangle.h"
+	<GL/gl.h>
+
+1445634967 /home/anumeha/miniconda3/include/GL/glu_mangle.h
+
+1523504037 source:/home/anumeha/Documents/basics/cube.cpp
+
