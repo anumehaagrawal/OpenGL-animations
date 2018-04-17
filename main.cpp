@@ -1,16 +1,20 @@
+ #include <stdio.h>
 
-#include <stdio.h>
  #include <stdlib.h>
  #include <windows.h>
  #include <math.h>
+
  #include <GL/glut.h>
+
  #define PI 3.1415927
+
+
 
  int rightHandAngle = 180;
 
-bool mouseLeftState = false;
+ bool mouseLeftState = false;
 
-bool mouseRightState = false;
+ bool mouseRightState = false;
 
  int rightHandMove = 2;
 
@@ -173,104 +177,6 @@ void draw_cylinder(GLfloat radius,GLfloat height,GLubyte R,GLubyte G,GLubyte B)
     glEnd();
 
 }
-
-/*
-
-void edgedetect(GLfloat x1,GLfloat y11,GLfloat x2,GLfloat y2,int *le,int *re)
-
-{
-
-            float mx,x,temp;
-
-            int i;
-
-            if((y2-y11)<0)
-
-            {
-
-              temp=x1;x1=x2;x2=temp;
-
-              temp=y11;y11=y2;y2=temp;
-
-            }
-
-              if((y2-y11)!=0)
-
-                        mx=(x2-x1)/(y2-y11);
-
-            else
-
-                        mx=x2-x1;
-
-            x=x1;
-
-            for(i=y11;i<y2;i++)
-
-            {
-
-                        if(x<le[i])
-
-                                    le[i]=x;
-
-                        if(x>re[i])
-
-                                    re[i]=x;
-
-                        x+=mx;
-
-            }
-
-}
-
-
-
-void scanfill(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4)
-
-{
-
-            int le[500],re[500];
-
-            int i,y;
-
-            for(i=0;i<500;i++)
-
-            {
-
-                        le[i]=500;
-
-                        re[i]=0;
-
-            }
-
-            edgedetect(x1,y1,x2,y2,le,re);
-
-            edgedetect(x2,y2,x3,y3,le,re);
-
-            edgedetect(x3,y3,x4,y4,le,re);
-
-            edgedetect(x4,y4,x1,y1,le,re);
-
-            for(y=0;y<500;y++)
-
-            {
-
-                       if(le[y]<=re[y])
-
-                                    for(i=le[y]+1;i<re[y];i++)
-
-                                                draw_pixel(i,y);
-
-            }
-
-}
-
-
-
-*/
-
-
-
-
 
 void draw_line(int x1, int x2, int y1, int y2) {
 
@@ -890,5 +796,3 @@ void circledraw(double R , double x, double y){
      return EXIT_SUCCESS;
 
  }
-
-
