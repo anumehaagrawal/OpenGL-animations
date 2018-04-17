@@ -6,23 +6,57 @@
  #include <GL/glut.h>
  #define PI 3.1415927
 
- int rightHandAngle = 180; // Angle of lower right hand
- bool mouseLeftState = false; // Is left mouse clicked?
- bool mouseRightState = false; // Is right mouse clicked?
- int rightHandMove = 2; // If left mouse clicked, right hand will rotate 2 degrees.
+ int rightHandAngle = 180;
+ bool mouseLeftState = false;
+ bool mouseRightState = false;
+ int rightHandMove = 2;
  int leftLegMove = 1; // If right mouse clicked, left leg will move by 1.
  int rightLegMove = -1; // If right mouse clicked, right leg will move by 1.
  int leftLegAngle = 90; // If right mouse clicked, this variable will be used to rotate left leg and it initialized to 90 degrees for first position of leg.
  int rightLegAngle = 90; // If right mouse clicked, this variable will be used to rotate right leg and it initialized to 90 degrees for first position of leg.
- float zMove = 0.0; // If right mouse clicked, this variable will be used to change position of object. Object will move on z-axis.
+ float zMove = 0.0;
 GLfloat x1,y11,x2,y2,x3,y3,x4,y4;
-
+GLfloat vertices[]={0.8,0.8,0.2,-0.2,
+	0.9,0.9,0.9,0.9,
+	0.4,0.7,0.3,0.5,
+	0.5,0.5,0.5,0.5
+	};
+	GLfloat colours[]={1,0,0,
+	0,1,0,
+	1,0,0,
+	0,0,1
+	};
 void draw_pixel(int x, int y) {
 	glBegin(GL_POINTS);
 	glVertex2i(x, y);
 	glEnd();
 }
 
+void hat(){
+
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColor3f(0,0,0);
+	glMatrixMode(GL_POLYGON);
+	glLoadIdentity();
+	glTranslatef(0,-0.25,0);
+	glRotatef(40,0,0,1);
+
+	glVertexPointer(3,GL_FLOAT,0,vertices);
+	glColorPointer(3,GL_FLOAT,0,colours);
+	glColor3f(0,0,1);
+	glDrawArrays(GL_POLYGON,0,4);
+
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glEnd();
+
+
+	//glRotatef(-5,0,1,0);
+
+}
 void draw_cylinder(GLfloat radius,GLfloat height,GLubyte R,GLubyte G,GLubyte B)
 {
     GLfloat x              = 0.0;
@@ -311,13 +345,19 @@ void circledraw(double R , double x, double y){
          glPopMatrix();
          glPushMatrix();
          glColor3f(0.0,0.0,0.0);
-         draw_line(-580, -300 , 40 , 40);
-         draw_line(-580, -580 , 40 , -300);
-         draw_line(-580, -300 , -300 , -300);
-         draw_line(-300, -300 , 40 , -300);
-         draw_line(-580,-440 , 40, 90);
-         draw_line(-300,-440,40,90);
+         draw_line(-680, -400 , 40 , 40);
+         draw_line(-680, -680 , 40 , -400);
+         draw_line(-680, -400 , -400 , -400);
+         draw_line(-400, -400 , 40 , -400);
+         draw_line(-680,-540 , 40, 90);
+         draw_line(-400,-540,40,90);
+         draw_line(-580,-580,-400,-200);
+         draw_line(-580,-500,-200,-200);
+         draw_line(-500,-500,-400,-200);
          //scanfill(-580,40,-300,40,-300,-300,-580,-300);
+         glPopMatrix();
+         glPushMatrix();
+         hat();
          glPopMatrix();
 
 
